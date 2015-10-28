@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import _ from 'underscore';
-import DetailsCollection from './detailsCollection';
-import moment from 'moment';
+import allDetailsCollection from './allDetailsCollection';
+
 
 import Router from './router';
 

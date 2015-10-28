@@ -1,16 +1,16 @@
 import Backbone from 'backbone';
 import $ from 'jquery';
-import listTemplate from './views/list';
+import individualDetailTemplate from './views/individualDetail';
 
-import detailsTemplate from './views/details';
+import contactListTemplate from './views/contactListTemplate';
 
-import detailsCollection from './detailsCollection';
+import allDetailsCollection from './allDetailsCollection';
 
 let Router = Backbone.Router.extend({
 
   routes: {
-    ""       : "list",
-    "details" : "showDetails",
+    ""       : "allDetails",
+    // "allDetails" : "showAllDetails",
     "details/:id" : "showSpecificDetail",
 
   },
@@ -19,13 +19,13 @@ let Router = Backbone.Router.extend({
   initialize: function(appElement) {
 
     this.$el = appElement;
-    this.details = new detailsCollection();
+    this.details = new allDetailsCollection();
 
     let router = this;
 
      this.$el.on('click', '.detail-list-item', function(event) {
-      let $li = $(event.currentTarget);
-      var detailId = $li.data('detail-id');
+      let $div = $(event.currentTarget);
+      var detailId = $div.data('detail-id');
       router.navigate(`details/${detailId}`);
       router.showSpecificDetail(detailId);
     });
@@ -37,15 +37,15 @@ let Router = Backbone.Router.extend({
         );
       },
 
-//set up list function THIS WILL BE THE HOME PAGE
-  //call list template
+//set up all info function THIS WILL BE THE HOME PAGE
+  //call all info template
 
-  list: function () {
-    console.log('show list page');
+  contactList: function () {
+    console.log('show all contacts page');
     this.showSpinner();
     this.details.fetch().then(function() {
 
-    this.$el.html(listTemplate(this.details.toJSON));
+    this.$el.html(contactListTemplate(this.details.toJSON));
     }.bind(this));
   },
 
@@ -53,20 +53,21 @@ let Router = Backbone.Router.extend({
 //set up detail function
     //call detail template
 
-    showSpecificDetail: function(detailId) {
+    showEachPeep: function(detailId) {
     let detail = this.details.get(detailId);
+    console.log ('show each entry');
 
     if (detail) {
       // if fetched
-      this.$el.html(detailTemplate(detail.toJSON()) );
+      this.$el.html(individualDetailTemplate(detail.toJSON()) );
     } else {
       // if not fetched
       
-      let detail = this.details.add({objectId: todoId});
+      let detail = this.details.add({objectId: detailId});
       var router = this;
       this.showSpinner();
       detail.fetch().then(function() {
-        router.$el.html( detailTemplate(detail.toJSON()) );
+        router.$el.html( individualDetailTemplate(detail.toJSON()) );
       });
     }
 

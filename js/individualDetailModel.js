@@ -1,6 +1,6 @@
 import Backbone from 'backbone';
 
-let DetailModel = Backbone.Model.extend({
+let individualDetailModel = Backbone.Model.extend({
 
   urlRoot: 'https://api.parse.com/1/classes/MyPeeps',
 
@@ -8,4 +8,4 @@ let DetailModel = Backbone.Model.extend({
 
 });
 
-export default DetailModel;
+export default individualDetailModel;
