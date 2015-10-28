@@ -23,11 +23,15 @@ let Router = Backbone.Router.extend({
 
     let router = this;
 
+     // add backbutton here as well
+     
      this.$el.on('click', '.detail-list-item', function(event) {
       let $div = $(event.currentTarget);
       var detailId = $div.data('detail-id');
       router.navigate(`details/${detailId}`);
       router.showSpecificDetail(detailId);
+
+
     });
 
   },
