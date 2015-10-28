@@ -1,4 +1,4 @@
-import Backbone from 'backbone';
+import Backbone from 'Backbone';
 
 let individualDetailModel = Backbone.Model.extend({
 

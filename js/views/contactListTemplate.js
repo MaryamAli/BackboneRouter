@@ -1,15 +1,15 @@
 
 
-function proccessData(data) {
+function processData(data) {
   return data.map(function (item) {
     return `
-      // <li>${item.title}</li>
-      <div class='contact-list-item' data-contact-id="${item.objectId}">
-      <img src="${item.Pics}">
+      
+      <div class='detail-list-item' data-detail-id="${item.objectId}">
       <p>${item.Name}</p>
-     
+     <img src="${item.Pics}">
       </div>
-    `;
+    `
+    // console.log(this);
   }).join('');
 }
 
@@ -17,7 +17,7 @@ function contactListTemplate (data) {
   return `
     
     <h2>Contact Details</h2>
-    <div>${proccessData(data)}</div>
+    <div>${processData(data)}</div>
     
 
 

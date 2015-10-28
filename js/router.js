@@ -6,12 +6,16 @@ import contactListTemplate from './views/contactListTemplate';
 
 import allDetailsCollection from './allDetailsCollection';
 
+//add home template
+import homeTemplate from './views/home';
+
 let Router = Backbone.Router.extend({
 
   routes: {
-    ""       : "allDetails",
+    // ""              : "home",
+    "details"       : "allDetails",
     // "allDetails" : "showAllDetails",
-    "indivDetails/:id" : "showSpecificDetail",
+    "indivDetails/:id" : "showIndividualDetail"
 
   },
 
@@ -29,12 +33,17 @@ let Router = Backbone.Router.extend({
       let $div = $(event.currentTarget);
       var detailId = $div.data('detail-id');
       router.navigate(`details/${detailId}`);
-      router.showSpecificDetail(detailId);
+      router.showIndividualDetail(detailId);
 
 
     });
 
   },
+    home: function () {
+      console.log('show home page');
+      this.$el.html(homeTemplate() );
+    },
+
       showSpinner: function() {
         this.$el.html(
           '<i class="fa fa-spinner fa-spin"></i>'
@@ -43,7 +52,7 @@ let Router = Backbone.Router.extend({
 //set up detail function
     //call detail template
 
-      showEachDetail: function(detailId) {
+      showIndividualDetail: function(detailId) {
       let detail = this.details.get(detailId);
       console.log ('show each entry');
 
@@ -53,29 +62,29 @@ let Router = Backbone.Router.extend({
       } else {
         // if not fetched
         let router = this;
-        detail = this.details.add({objectId: detailId});
+        let detail = this.details.add({objectId: detailId});
         
         this.showSpinner();
         detail.fetch().then(function() {
-          router.$el.html( individualDetailTemplate(detail.toJSON()) );
+          router.$el.html(individualDetailTemplate(detail.toJSON()) );
         });
       }
 
     },
 
-//set up all info function THIS WILL BE THE HOME PAGE
+
   //call all info template
 
-  contactList: function () {
+  allDetails: function () {
     console.log('show all contacts page');
     this.showSpinner();
     var router = this;
     this.details.fetch().then(function() {
 
     router.$el.html(contactListTemplate(router.details.toJSON()) );
-    // }.bind(this));
     
-   });
+    
+   }.bind(this));
   },
 
 
