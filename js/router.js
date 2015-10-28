@@ -11,7 +11,7 @@ let Router = Backbone.Router.extend({
   routes: {
     ""       : "allDetails",
     // "allDetails" : "showAllDetails",
-    "details/:id" : "showSpecificDetail",
+    "indivDetails/:id" : "showSpecificDetail",
 
   },
 
@@ -36,6 +36,28 @@ let Router = Backbone.Router.extend({
           '<i class="fa fa-spinner fa-spin"></i>'
         );
       },
+//set up detail function
+    //call detail template
+
+      showEachDetail: function(detailId) {
+      let detail = this.details.get(detailId);
+      console.log ('show each entry');
+
+      if (detail) {
+        // if fetched
+        this.$el.html(individualDetailTemplate(detail.toJSON()) );
+      } else {
+        // if not fetched
+        let router = this;
+        detail = this.details.add({objectId: detailId});
+        
+        this.showSpinner();
+        detail.fetch().then(function() {
+          router.$el.html( individualDetailTemplate(detail.toJSON()) );
+        });
+      }
+
+    },
 
 //set up all info function THIS WILL BE THE HOME PAGE
   //call all info template
@@ -43,35 +65,17 @@ let Router = Backbone.Router.extend({
   contactList: function () {
     console.log('show all contacts page');
     this.showSpinner();
+    var router = this;
     this.details.fetch().then(function() {
 
-    this.$el.html(contactListTemplate(this.details.toJSON));
-    }.bind(this));
+    router.$el.html(contactListTemplate(router.details.toJSON()) );
+    // }.bind(this));
+    
+   });
   },
 
 
-//set up detail function
-    //call detail template
 
-    showEachPeep: function(detailId) {
-    let detail = this.details.get(detailId);
-    console.log ('show each entry');
-
-    if (detail) {
-      // if fetched
-      this.$el.html(individualDetailTemplate(detail.toJSON()) );
-    } else {
-      // if not fetched
-      
-      let detail = this.details.add({objectId: detailId});
-      var router = this;
-      this.showSpinner();
-      detail.fetch().then(function() {
-        router.$el.html( individualDetailTemplate(detail.toJSON()) );
-      });
-    }
-
-  },
 
  // showDetails: function() {
  //    console.log('show details page');

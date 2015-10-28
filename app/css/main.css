@@ -2018,4 +2018,14 @@
 .fa-fonticons:before {
   content: ""; }
 
+body .indivPics {
+  width: 100px;
+  height: 100px; }
+
+body .indivDetails {
+  font-size: 14px; }
+
+body .fa {
+  color: #484848; }
+
 /*# sourceMappingURL=main.css.map */

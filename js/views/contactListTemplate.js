@@ -6,7 +6,7 @@ function proccessData(data) {
       // <li>${item.title}</li>
       <div class='contact-list-item' data-contact-id="${item.objectId}">
       <img src="${item.Pics}">
-      <p>{item.Name}</p>
+      <p>${item.Name}</p>
      
       </div>
     `;
@@ -17,7 +17,7 @@ function contactListTemplate (data) {
   return `
     
     <h2>Contact Details</h2>
-    <ul>${proccessData(data)}</ul>
+    <div>${proccessData(data)}</div>
     
 
 

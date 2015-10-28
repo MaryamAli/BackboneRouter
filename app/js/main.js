@@ -148,7 +148,7 @@ var Router = _backbone2['default'].Router.extend({
   routes: {
     "": "allDetails",
     // "allDetails" : "showAllDetails",
-    "details/:id": "showSpecificDetail"
+    "indivDetails/:id": "showSpecificDetail"
 
   },
 
@@ -170,23 +170,10 @@ var Router = _backbone2['default'].Router.extend({
   showSpinner: function showSpinner() {
     this.$el.html('<i class="fa fa-spinner fa-spin"></i>');
   },
-
-  //set up all info function THIS WILL BE THE HOME PAGE
-  //call all info template
-
-  contactList: function contactList() {
-    console.log('show all contacts page');
-    this.showSpinner();
-    this.details.fetch().then((function () {
-
-      this.$el.html((0, _viewsContactListTemplate2['default'])(this.details.toJSON));
-    }).bind(this));
-  },
-
   //set up detail function
   //call detail template
 
-  showEachPeep: function showEachPeep(detailId) {
+  showEachDetail: function showEachDetail(detailId) {
     var _this = this;
 
     var detail = this.details.get(detailId);
@@ -196,13 +183,10 @@ var Router = _backbone2['default'].Router.extend({
       // if fetched
       this.$el.html((0, _viewsIndividualDetail2['default'])(detail.toJSON()));
     } else {
-      var router;
-
       (function () {
         // if not fetched
-
-        var detail = _this.details.add({ objectId: detailId });
-        router = _this;
+        var router = _this;
+        detail = _this.details.add({ objectId: detailId });
 
         _this.showSpinner();
         detail.fetch().then(function () {
@@ -210,6 +194,20 @@ var Router = _backbone2['default'].Router.extend({
         });
       })();
     }
+  },
+
+  //set up all info function THIS WILL BE THE HOME PAGE
+  //call all info template
+
+  contactList: function contactList() {
+    console.log('show all contacts page');
+    this.showSpinner();
+    var router = this;
+    this.details.fetch().then(function () {
+
+      router.$el.html((0, _viewsContactListTemplate2['default'])(router.details.toJSON()));
+      // }.bind(this));
+    });
   },
 
   // showDetails: function() {
@@ -246,12 +244,12 @@ Object.defineProperty(exports, '__esModule', {
 
 function proccessData(data) {
   return data.map(function (item) {
-    return '\n      // <li>' + item.title + '</li>\n      <div class=\'contact-list-item\' data-contact-id="' + item.objectId + '">\n      <img src="' + item.Pics + '">\n      <p>{item.Name}</p>\n     \n      </div>\n    ';
+    return '\n      // <li>' + item.title + '</li>\n      <div class=\'contact-list-item\' data-contact-id="' + item.objectId + '">\n      <img src="' + item.Pics + '">\n      <p>' + item.Name + '</p>\n     \n      </div>\n    ';
   }).join('');
 }
 
 function contactListTemplate(data) {
-  return '\n    \n    <h2>Contact Details</h2>\n    <ul>' + proccessData(data) + '</ul>\n    \n\n\n  ';
+  return '\n    \n    <h2>Contact Details</h2>\n    <div>' + proccessData(data) + '</div>\n    \n\n\n  ';
 }
 
 exports['default'] = contactListTemplate;
@@ -268,7 +266,7 @@ Object.defineProperty(exports, "__esModule", {
 
 function individualDetailTemplate(data) {
 
-  return "\n  <div>\n    <h2>Contact Info</h2>\n    <div>" + data.Name + "</div>\n    <div>" + data.Email + "</div>\n    <div>" + data.Phone + "</div>\n    <div>" + data.Address + "</div>\n    <div><img src=\"" + data.Pics + "\"></div>\n  </div>\n  ";
+  return "\n  <div class=\"indivDetails\">\n    <h2>Contact Info</h2>\n    //Name\n    <div><i class=\"fa fa-male\"></i>" + data.Name + "</div>\n    // Email\n    <div><i class=\"fa fa-envelope-o\"></i>" + data.Email + "</div>\n    // Phone\n    <div><i class=\"fa fa-mobile\"></i>" + data.Phone + "</div>\n    // Address\n    <div><i class=\"fa fa-map-marker\"></i>" + data.Address + "</div>\n    <div><img class=\"indivPic\" src=\"" + data.Pics + "\"></div>\n  </div>\n  ";
 }
 
 exports["default"] = individualDetailTemplate;
