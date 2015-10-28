@@ -13,7 +13,7 @@ let Router = Backbone.Router.extend({
 
   routes: {
     // ""              : "home",
-    "details"       : "allDetails",
+    ""       : "allDetails",
     // "allDetails" : "showAllDetails",
     "indivDetails/:id" : "showIndividualDetail"
 
@@ -28,8 +28,15 @@ let Router = Backbone.Router.extend({
     let router = this;
 
      // add backbutton here as well
-     
-     this.$el.on('click', '.detail-list-item', function(event) {
+ 
+    this.$el.on ('click', '.back-button', function(event) {
+      let $button = $(event.currentTarget);
+      let route = $button.data('to');
+      router.navigate(route, {trigger: true})
+    });
+
+
+      this.$el.on('click', '.detail-list-item', function(event) {
       let $div = $(event.currentTarget);
       var detailId = $div.data('detail-id');
       router.navigate(`details/${detailId}`);

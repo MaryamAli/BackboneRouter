@@ -146,7 +146,7 @@ var Router = _backbone2['default'].Router.extend({
 
   routes: {
     // ""              : "home",
-    "details": "allDetails",
+    "": "allDetails",
     // "allDetails" : "showAllDetails",
     "indivDetails/:id": "showIndividualDetail"
 
@@ -161,6 +161,12 @@ var Router = _backbone2['default'].Router.extend({
     var router = this;
 
     // add backbutton here as well
+
+    this.$el.on('click', '.back-button', function (event) {
+      var $button = (0, _jquery2['default'])(event.currentTarget);
+      var route = $button.data('to');
+      router.navigate(route, { trigger: true });
+    });
 
     this.$el.on('click', '.detail-list-item', function (event) {
       var $div = (0, _jquery2['default'])(event.currentTarget);
@@ -249,13 +255,13 @@ Object.defineProperty(exports, '__esModule', {
 
 function processData(data) {
   return data.map(function (item) {
-    return '\n      \n      <div class=\'detail-list-item\' data-detail-id="' + item.objectId + '">\n      <p>' + item.Name + '</p>\n     <img src="' + item.Pics + '">\n      </div>\n    ';
+    return '\n      \n      <div class=\'detail-list-item\' data-detail-id="' + item.objectId + '"><img class="listPic" src="' + item.Pics + '">&nbsp&nbsp<span>' + item.Name + '</span></div>\n    ';
     // console.log(this);
   }).join('');
 }
 
 function contactListTemplate(data) {
-  return '\n    \n    <h2>Contact Details</h2>\n    <div>' + processData(data) + '</div>\n    \n\n\n  ';
+  return '\n    \n    <h2>My Peeps</h2>\n    <div>' + processData(data) + '</div>\n    \n\n\n  ';
 }
 
 exports['default'] = contactListTemplate;
@@ -285,7 +291,7 @@ Object.defineProperty(exports, "__esModule", {
 
 function individualDetailTemplate(data) {
 
-  return "\n  <div class=\"indivDetails\">\n    <h2>Contact Info</h2>\n   \n    \n    <div><i class=\"fa fa-male\"></i>&nbsp" + data.Name + "</div>\n    \n    <div><i class=\"fa fa-envelope-o\"></i>&nbsp" + data.Email + "</div>\n    \n    <div><i class=\"fa fa-mobile\"></i>&nbsp" + data.Phone + "</div>\n   \n    <div><i class=\"fa fa-map-marker\"></i>&nbsp" + data.Address + "</div>\n    <br>\n    <div><img class=\"indivPic\" src=\"" + data.Pics + "\"></div>\n  </div>\n  ";
+  return "\n  <div class=\"indivDetails\">\n    <h2></h2>\n   \n    <div><img class=\"indivPic\" src=\"" + data.Pics + "\"></div>\n    <br>\n    <span class=\"indivText\"><div><i class=\"fa fa-male\"></i><span class = \"name\">&nbsp" + data.Name + "</span></div>\n    \n    <div><i class=\"fa fa-paper-plane\"></i>&nbsp" + data.Email + "</div>\n    \n    <div><i class=\"fa fa-mobile\"></i>&nbsp" + data.Phone + "</div>\n   \n    <div class=\"mapMarker\"><i class=\"fa fa-map-marker\"></i>&nbsp<span class=\"mapData\">" + data.Address + "</span></div>\n    \n    <button class=\"back-button\" data-to=\"\"><i class=\"fa fa-hand-o-left\"></i></button></span>\n    \n    </div>\n  ";
 }
 
 exports["default"] = individualDetailTemplate;

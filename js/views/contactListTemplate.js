@@ -4,10 +4,7 @@ function processData(data) {
   return data.map(function (item) {
     return `
       
-      <div class='detail-list-item' data-detail-id="${item.objectId}">
-      <p>${item.Name}</p>
-     <img src="${item.Pics}">
-      </div>
+      <div class='detail-list-item' data-detail-id="${item.objectId}"><img class="listPic" src="${item.Pics}">&nbsp&nbsp<span>${item.Name}</span></div>
     `
     // console.log(this);
   }).join('');
@@ -16,7 +13,7 @@ function processData(data) {
 function contactListTemplate (data) {
   return `
     
-    <h2>Contact Details</h2>
+    <h2>My Peeps</h2>
     <div>${processData(data)}</div>
     
 
