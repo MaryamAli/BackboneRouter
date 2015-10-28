@@ -1,20 +1,17 @@
 
 
-function proccessData(data) {
-  return data.map(function (item) {
-    return `
-      <li>${item.title}</li>
-    `
-  }).join('');
-}
+function detailTemplate(data) {
+  
 
-function detailTemplate (data) {
   return `
-  <h2>Contact Details</h2>
-  <ul>${proccessData(data)}</ul>
-  `;
+  <div>
+    <h2>Contact</h2>
+    <div>${data.Name}</div>
+    <div>${data.Email}</div>
+    <div>${data.Phone}</div>
+    <div>${data.Address}</div>
+    <div><img src="${data.Pics}"></div>
+  </div>`;
 }
-
-
 
 export default detailTemplate;
