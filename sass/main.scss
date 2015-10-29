@@ -18,19 +18,18 @@ body {
  
   }
   .indivDetails {
-    height: 300px;
-    width: 200px;
+    height: 275px;
+    width: 275px;
     border: 5px solid black;
-    padding: 30px;
-
-    // padding: 200px 200px;
+    margin: 50px;
+    text-align: center;
     font-size:14px;
-    // padding-left: 10px;
+    border-radius: 360px;
   }
   .indivText {
-    display: inline-block;
-    vertical-align: center;
     
+    vertical-align: center;
+
   }
   .name {
     font-size: 18px;
